@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Webtest</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 10px;
+    }
+
+    #result {
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>HTML Runner</h1>
+
+  <textarea id="htmlCode">
+  </textarea>
+
+  <button onclick="runHTML()">Run HTML</button>
+
+  <div id="result"></div>
+
+  <script>
+    function runHTML() {
+      var htmlCode = document.getElementById('htmlCode').value;
+
+      // Create a temporary iframe to execute the HTML
+      var iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      // Access the iframe's document
+      var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+      // Set the iframe's content to the entered HTML
+      iframeDoc.open();
+      iframeDoc.write(htmlCode);
+      iframeDoc.close();
+
+      // Display the output in the result div
+      document.getElementById('result').innerHTML = iframeDoc.body.innerHTML;
+
+      // Remove the temporary iframe
+      document.body.removeChild(iframe);
+    }
+  </script>
+
+</body>
+</html>
